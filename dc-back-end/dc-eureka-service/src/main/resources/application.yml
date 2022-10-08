@@ -1,0 +1,22 @@
+spring:
+    application:
+        name: dc-eureka-service
+
+server:
+    port: 10761
+
+eureka:
+    instance:
+        preferIpAddress: true
+    client:
+        register-with-eureka: false
+        fetch-registry: false
+        serviceUrl:
+            defaultZone: http://${eureka.service.host:localhost}:10761/eureka/
+
+logging:
+    level:
+        com:
+            netflix:
+                eureka: OFF
+                discovery: OFF
