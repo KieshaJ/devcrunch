@@ -12,5 +12,6 @@
     <modules>
         <module>dc-base-service</module>
         <module>dc-eureka-service</module>
+        <module>dc-post-service</module>
     </modules>
 </project>
