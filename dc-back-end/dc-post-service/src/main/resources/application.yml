@@ -1,0 +1,26 @@
+server:
+    port: 10020
+
+spring:
+    application:
+        name: dc-post-service
+    data:
+        mongodb:
+            host: ${database.host:localhost}:${database.port:27017}
+            database: post-db
+
+eureka:
+    instance:
+        preferIpAddress: true
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        serviceUrl:
+            defaultZone: http://${eureka.service.host:localhost}:10761/eureka/
+
+logging:
+    level:
+        com:
+            netflix:
+                eureka: OFF
+                discovery: OFF
