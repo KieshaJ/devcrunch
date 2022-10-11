@@ -57,7 +57,7 @@ public class PostController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable String id) {
         boolean deleted = service.delete(id);
         return new ResponseEntity<>(deleted, HttpStatus.OK);
