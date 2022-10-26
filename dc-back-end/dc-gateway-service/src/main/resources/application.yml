@@ -1,0 +1,55 @@
+spring:
+    application:
+        name: dc-gateway-service
+    cloud:
+        gateway:
+            discovery:
+                locator:
+                    enabled: true
+                    lowerCaseServiceId: true
+            routes:
+              - id: post-service
+                uri: lb://dc-post-service
+                predicates:
+                - Path=/post/**
+                filters:
+                - RewritePath=/post/(?<path>.*), /$\{path}
+              - id: user-service
+                uri: lb://dc-user-service
+                predicates:
+                - Path=/user/**
+                filters:
+                - RewritePath=/user/(?<path>.*), /$\{path}
+              - id: comment-service
+                uri: lb://dc-comment-service
+                predicates:
+                - Path=/comment/**
+                filters:
+                - RewritePath=/comment/(?<path>.*), /$\{path}
+              - id: openapi
+                uri: http://localhost:10000
+                predicates:
+                - Path=/v3/api-docs/**
+                filters:
+                - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+
+server:
+    port: 10000
+
+eureka:
+    instance:
+        preferIpAddress: true
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        serviceUrl:
+            defaultZone: http://${eureka.service.host:localhost}:10761/eureka/
+        healthcheck:
+            enabled: true
+
+logging:
+    level:
+        com:
+            netflix:
+                eureka: OFF
+                discovery: OFF
