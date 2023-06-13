@@ -1,0 +1,79 @@
+version: "3.10"
+
+services:
+  dc-user-db:
+    image: "mongo"
+    restart: on-failure
+    ports:
+      - 27017:27017
+  dc-post-db:
+    image: "mongo"
+    restart: on-failure
+    ports:
+      - 27027:27017
+  dc-comment-db:
+    image: "mongo"
+    restart: on-failure
+    ports:
+      - 27037:27017
+
+  dc-user-service:
+    restart: on-failure
+    build: Dockerfile
+    context: ./dc-user-service
+    ports:
+      - 10010:10010
+    depends_on:
+      - dc-user-db
+    environment:
+      - DATABASE_HOST=dc-user-db
+      - DATABASE_PORT=27017
+
+  dc-post-service:
+    restart: on-failure
+    build: Dockerfile
+    context: ./dc-post-service
+    ports:
+      - 10020:10020
+    depends_on:
+      - dc-post-db
+    environment:
+      - DATABASE_HOST=dc-post-db
+      - DATABASE_PORT=27027
+
+  dc-comment-service:
+    restart: on-failure
+    build: Dockerfile
+    context: ./dc-comment-service
+    ports:
+      - 10030:10030
+    depends_on:
+      - dc-comment-db
+    environment:
+      - DATABASE_HOST=dc-comment-db
+      - DATABASE_PORT=27037
+
+  dc-gateway-service:
+    restart: on-failure
+    build: Dockerfile
+    context: ./dc-gateway-service
+    environment:
+      # - name=value
+    ports: 
+      - 10000:10000
+    depends_on:
+      - dc-user-service
+      - dc-post-service
+      - dc-comment-service
+
+  dc-eureka-service:
+    restart: on-failure
+    build: Dockerfile
+    context: ./dc-eureka-service
+    ports:
+      - 10761:10761
+    depends_on:
+      - dc-gateway-service
+    
+networks:
+  - dc
