@@ -1,9 +1,8 @@
 package tech.kjworks.dcuserservice.model;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import tech.kjworks.dcbaseservice.model.BaseModel;

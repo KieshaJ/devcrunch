@@ -2,6 +2,8 @@ package tech.kjworks.dcbaseservice.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 public interface BaseService<T> {
     public List<T> list();
     public T create(T entity);

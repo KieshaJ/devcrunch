@@ -1,7 +1,9 @@
 package tech.kjworks.dcgatewayservice.config;
 
-import org.springdoc.core.SwaggerUiConfigParameters;
-import org.springframework.boot.CommandLineRunner;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.context.annotation.Bean;
@@ -14,15 +16,23 @@ import io.swagger.v3.oas.annotations.info.Info;
 @OpenAPIDefinition(info = @Info(title = "dc-gateway-service", version = "0.0.1", description = "DevCrunch Gateway service routes"))
 public class OpenAPIConfig {
     @Bean
-    public CommandLineRunner openApiGroups(
-            RouteDefinitionLocator locator,
-            SwaggerUiConfigParameters swaggerUiParameters) {
-        return args -> locator
-                .getRouteDefinitions().collectList().block()
-                .stream()
-                .map(RouteDefinition::getId)
-                .filter(id -> id.matches(".*-service"))
-                .map(id -> id.replace("-service", ""))
-                .forEach(swaggerUiParameters::addGroup);
+    public List<GroupedOpenApi> apis(RouteDefinitionLocator locator) {
+        List<GroupedOpenApi> groups = new ArrayList<>();
+        List<RouteDefinition> definitions = locator
+            .getRouteDefinitions()
+            .collectList()
+            .block();
+
+        assert definitions != null;
+
+        definitions.stream().filter(definition -> definition
+            .getId()
+            .matches(".*-service"))
+            .forEach(definition -> {
+                String name = definition.getId().replace("-service", "");
+                groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).build());
+            });
+        
+        return groups;
     }
 }

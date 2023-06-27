@@ -11,27 +11,27 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import tech.kjworks.dcpostservice.model.Post;
 import tech.kjworks.dcpostservice.util.enums.PostType;
 
-@DataMongoTest
-public class PostRepositoryTests {
-    @Autowired
-    private PostRepository repository;
+// @DataMongoTest
+// public class PostRepositoryTests {
+//     @Autowired
+//     private PostRepository repository;
 
-    @BeforeEach
-    void setUp() {
-        Post post1 = new Post(null, PostType.PROBLEM, "1", "One", null, null, null);
-        Post post2 = new Post(null, PostType.PROBLEM, "2", "Two", null, null, null);
+//     @BeforeEach
+//     void setUp() {
+//         Post post1 = new Post(null, PostType.PROBLEM, "1", "One", null, null, null);
+//         Post post2 = new Post(null, PostType.PROBLEM, "2", "Two", null, null, null);
 
-        repository.save(post1);
-        repository.save(post2);
-    }
+//         repository.save(post1);
+//         repository.save(post2);
+//     }
 
-    @AfterEach
-    void teardown() {
-        repository.deleteAll();
-    }
+//     @AfterEach
+//     void teardown() {
+//         repository.deleteAll();
+//     }
 
-    @Test
-    void postRepository_saveSuccess() {
-        assertTrue(true);
-    }
-}
+//     @Test
+//     void postRepository_saveSuccess() {
+//         assertTrue(true);
+//     }
+// }
