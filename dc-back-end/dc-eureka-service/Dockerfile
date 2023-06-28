@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-jdk-slim-buster
 
 ADD target/*.jar app.jar
 
