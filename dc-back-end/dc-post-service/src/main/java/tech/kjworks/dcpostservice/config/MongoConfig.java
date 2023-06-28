@@ -8,7 +8,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @Configuration
 public class MongoConfig {
     @Bean
-    public ValidatingMongoEventListener validatingMongoEventListener() {
+    ValidatingMongoEventListener validatingMongoEventListener() {
         LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
         return new ValidatingMongoEventListener(factory);
     }

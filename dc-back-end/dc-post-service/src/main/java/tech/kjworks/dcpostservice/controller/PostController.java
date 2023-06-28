@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import tech.kjworks.dcpostservice.model.Post;
+import jakarta.validation.Valid;
 import tech.kjworks.dcpostservice.service.PostService;
-import tech.kjworks.dcpostservice.util.data.PostDataUtils;
 import tech.kjworks.dcpostservice.util.dto.PostDTO;
 
 @RestController
@@ -29,31 +28,25 @@ public class PostController {
 
     @PostMapping(path = "/list")
     public ResponseEntity<List<PostDTO>> list() {
-        List<Post> entityList = service.list();
-        List<PostDTO> dtoList = PostDataUtils.toDTOList(entityList);
+        List<PostDTO> dtoList = service.list();
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
     @PostMapping(path = "/create")
-    public ResponseEntity<PostDTO> create(@RequestBody PostDTO post) {
-        Post entity = PostDataUtils.toModel(post);
-        entity = service.create(entity);
-        PostDTO dto = PostDataUtils.toDTO(entity);
+    public ResponseEntity<PostDTO> create(@Valid @RequestBody PostDTO post) {
+        PostDTO dto = service.create(post);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PutMapping(path = "/update/{id}")
-    public ResponseEntity<PostDTO> update(@PathVariable String id, @RequestBody PostDTO post) {
-        Post entity = PostDataUtils.toModel(post);
-        entity = service.update(id, entity);
-        PostDTO dto = PostDataUtils.toDTO(entity);
+    public ResponseEntity<PostDTO> update(@PathVariable String id, @Valid @RequestBody PostDTO post) {
+        PostDTO dto = service.update(id, post);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<PostDTO> get(@PathVariable String id) {
-        Post entity = service.get(id);
-        PostDTO dto = PostDataUtils.toDTO(entity);
+        PostDTO dto = service.get(id);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 

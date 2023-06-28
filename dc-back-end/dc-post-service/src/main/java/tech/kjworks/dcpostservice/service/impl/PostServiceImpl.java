@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import tech.kjworks.dcpostservice.model.Post;
 import tech.kjworks.dcpostservice.repository.PostRepository;
 import tech.kjworks.dcpostservice.service.PostService;
+import tech.kjworks.dcpostservice.util.data.PostDataUtils;
+import tech.kjworks.dcpostservice.util.dto.PostDTO;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -15,27 +17,33 @@ public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
 
     @Override
-    public List<Post> list() {
-        return postRepository.findAll();
+    public List<PostDTO> list() {
+        List<Post> posts = postRepository.findAll();
+        return PostDataUtils.toDTOList(posts);
     }
 
     @Override
-    public Post create(Post entity) {
-        return postRepository.insert(entity);
+    public PostDTO create(PostDTO entity) {
+        Post postData = PostDataUtils.toModel(entity);
+        postData = postRepository.insert(postData);
+        return PostDataUtils.toDTO(postData);
     }
 
     @Override
-    public Post update(String id, Post entity) {
+    public PostDTO update(String id, PostDTO entity) {
         boolean exists = postRepository.existsById(id);
         if (exists) {
-            return postRepository.save(entity);
+            Post postData = PostDataUtils.toModel(entity);
+            postData = postRepository.save(postData);
+            return PostDataUtils.toDTO(postData);
         }
         return null;
     }
 
     @Override
-    public Post get(String id) {
-        return postRepository.findById(id).orElse(null);
+    public PostDTO get(String id) {
+        Post postData = postRepository.findById(id).orElse(null);
+        return PostDataUtils.toDTO(postData);
     }
 
     @Override

@@ -28,6 +28,7 @@ public class Post extends BaseModel {
     private List<ContentBlock> contentList;
     @DBRef
     private List<Post> solutionList;
+    // TODO might need Map instead of List
     private List<String> commentIds;
 
     public Post(String id, PostType type, String authorId, String title, List<ContentBlock> contentList, List<Post> solutionList, List<String> commentIds) {
