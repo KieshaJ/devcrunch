@@ -14,18 +14,18 @@ spring:
                 - Path=/post/**
                 filters:
                 - RewritePath=/post/(?<path>.*), /$\{path}
-            #   - id: user-service
-            #     uri: lb://dc-user-service
-            #     predicates:
-            #     - Path=/user/**
-            #     filters:
-            #     - RewritePath=/user/(?<path>.*), /$\{path}
-            #   - id: comment-service
-            #     uri: lb://dc-comment-service
-            #     predicates:
-            #     - Path=/comment/**
-            #     filters:
-            #     - RewritePath=/comment/(?<path>.*), /$\{path}
+              - id: user-service
+                uri: lb://dc-user-service
+                predicates:
+                - Path=/user/**
+                filters:
+                - RewritePath=/user/(?<path>.*), /$\{path}
+              - id: comment-service
+                uri: lb://dc-comment-service
+                predicates:
+                - Path=/comment/**
+                filters:
+                - RewritePath=/comment/(?<path>.*), /$\{path}
               - id: openapi
                 uri: http://localhost:10000
                 predicates:
@@ -36,12 +36,12 @@ spring:
 springdoc:
   swagger-ui:
     urls:
-    #   - name: user
-    #     url: /v3/api-docs/user
+      - name: user
+        url: /v3/api-docs/user
       - name: post
         url: /v3/api-docs/post
-    #   - name: comment
-    #     url: /v3/api-docs/comment
+      - name: comment
+        url: /v3/api-docs/comment
 
 server:
     port: 10000
