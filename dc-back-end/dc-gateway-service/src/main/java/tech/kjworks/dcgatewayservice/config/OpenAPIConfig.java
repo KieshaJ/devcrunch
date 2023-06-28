@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 @OpenAPIDefinition(info = @Info(title = "dc-gateway-service", version = "0.0.1", description = "DevCrunch Gateway service routes"))
 public class OpenAPIConfig {
     @Bean
-    public List<GroupedOpenApi> apis(RouteDefinitionLocator locator) {
+    List<GroupedOpenApi> apis(RouteDefinitionLocator locator) {
         List<GroupedOpenApi> groups = new ArrayList<>();
         List<RouteDefinition> definitions = locator
             .getRouteDefinitions()
