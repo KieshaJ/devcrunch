@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import tech.kjworks.dccommentservice.model.Comment;
+import jakarta.validation.Valid;
 import tech.kjworks.dccommentservice.service.CommentService;
-import tech.kjworks.dccommentservice.util.data.CommentDataUtils;
 import tech.kjworks.dccommentservice.util.dto.CommentDTO;
 
 @RestController
@@ -29,31 +28,25 @@ public class CommentController {
 
     @PostMapping(path = "/list")
     public ResponseEntity<List<CommentDTO>> list() {
-        List<Comment> entityList = service.list();
-        List<CommentDTO> dtoList = CommentDataUtils.toDTOList(entityList);
+        List<CommentDTO> dtoList = service.list();
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
     @PostMapping(path = "/create")
-    public ResponseEntity<CommentDTO> create(@RequestBody CommentDTO user) {
-        Comment entity = CommentDataUtils.toModel(user);
-        entity = service.create(entity);
-        CommentDTO dto = CommentDataUtils.toDTO(entity);
+    public ResponseEntity<CommentDTO> create(@Valid @RequestBody CommentDTO user) {
+        CommentDTO dto = service.create(user);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PutMapping(path = "/update/{id}")
-    public ResponseEntity<CommentDTO> update(@PathVariable String id, @RequestBody CommentDTO user) {
-        Comment entity = CommentDataUtils.toModel(user);
-        entity = service.update(id, entity);
-        CommentDTO dto = CommentDataUtils.toDTO(entity);
+    public ResponseEntity<CommentDTO> update(@PathVariable String id, @Valid @RequestBody CommentDTO user) {
+        CommentDTO dto = service.update(id, user);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<CommentDTO> get(@PathVariable String id) {
-        Comment entity = service.get(id);
-        CommentDTO dto = CommentDataUtils.toDTO(entity);
+        CommentDTO dto = service.get(id);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 

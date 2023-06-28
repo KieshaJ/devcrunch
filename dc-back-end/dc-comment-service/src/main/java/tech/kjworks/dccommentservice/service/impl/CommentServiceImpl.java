@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import tech.kjworks.dccommentservice.model.Comment;
 import tech.kjworks.dccommentservice.repository.CommentRepository;
 import tech.kjworks.dccommentservice.service.CommentService;
+import tech.kjworks.dccommentservice.util.data.CommentDataUtils;
+import tech.kjworks.dccommentservice.util.dto.CommentDTO;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -15,27 +17,33 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
 
     @Override
-    public List<Comment> list() {
-        return commentRepository.findAll();
+    public List<CommentDTO> list() {
+        List<Comment> comments = commentRepository.findAll();
+        return CommentDataUtils.toDTOList(comments);
     }
 
     @Override
-    public Comment create(Comment entity) {
-        return commentRepository.insert(entity);
+    public CommentDTO create(CommentDTO dto) {
+        Comment entity = CommentDataUtils.toModel(dto);
+        entity = commentRepository.insert(entity);
+        return CommentDataUtils.toDTO(entity);
     }
 
     @Override
-    public Comment update(String id, Comment entity) {
+    public CommentDTO update(String id, CommentDTO dto) {
         boolean exists = commentRepository.existsById(id);
         if (exists) {
-            return commentRepository.save(entity);
+            Comment entity = CommentDataUtils.toModel(dto);
+            entity = commentRepository.save(entity);
+            return CommentDataUtils.toDTO(entity);
         }
         return null;
     }
 
     @Override
-    public Comment get(String id) {
-        return commentRepository.findById(id).orElse(null);
+    public CommentDTO get(String id) {
+        Comment entity = commentRepository.findById(id).orElse(null);
+        return CommentDataUtils.toDTO(entity);
     }
 
     @Override

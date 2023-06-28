@@ -23,27 +23,27 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostDTO create(PostDTO entity) {
-        Post postData = PostDataUtils.toModel(entity);
-        postData = postRepository.insert(postData);
-        return PostDataUtils.toDTO(postData);
+    public PostDTO create(PostDTO dto) {
+        Post entity = PostDataUtils.toModel(dto);
+        entity = postRepository.insert(entity);
+        return PostDataUtils.toDTO(entity);
     }
 
     @Override
-    public PostDTO update(String id, PostDTO entity) {
+    public PostDTO update(String id, PostDTO dto) {
         boolean exists = postRepository.existsById(id);
         if (exists) {
-            Post postData = PostDataUtils.toModel(entity);
-            postData = postRepository.save(postData);
-            return PostDataUtils.toDTO(postData);
+            Post entity = PostDataUtils.toModel(dto);
+            entity = postRepository.save(entity);
+            return PostDataUtils.toDTO(entity);
         }
         return null;
     }
 
     @Override
     public PostDTO get(String id) {
-        Post postData = postRepository.findById(id).orElse(null);
-        return PostDataUtils.toDTO(postData);
+        Post entity = postRepository.findById(id).orElse(null);
+        return PostDataUtils.toDTO(entity);
     }
 
     @Override

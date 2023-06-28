@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import tech.kjworks.dcuserservice.model.User;
 import tech.kjworks.dcuserservice.service.UserService;
-import tech.kjworks.dcuserservice.util.data.UserDataUtils;
 import tech.kjworks.dcuserservice.util.dto.UserDTO;
 
 @RestController
@@ -29,31 +27,25 @@ public class UserController {
 
     @PostMapping(path = "/list")
     public ResponseEntity<List<UserDTO>> list() {
-        List<User> entityList = service.list();
-        List<UserDTO> dtoList = UserDataUtils.toDTOList(entityList);
+        List<UserDTO> dtoList = service.list();
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
     @PostMapping(path = "/create")
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO user) {
-        User entity = UserDataUtils.toModel(user);
-        entity = service.create(entity);
-        UserDTO dto = UserDataUtils.toDTO(entity);
+        UserDTO dto = service.create(user);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<UserDTO> update(@PathVariable String id, @RequestBody UserDTO user) {
-        User entity = UserDataUtils.toModel(user);
-        entity = service.update(id, entity);
-        UserDTO dto = UserDataUtils.toDTO(entity);
+        UserDTO dto = service.update(id, user);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<UserDTO> get(@PathVariable String id) {
-        User entity = service.get(id);
-        UserDTO dto = UserDataUtils.toDTO(entity);
+        UserDTO dto = service.get(id);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 

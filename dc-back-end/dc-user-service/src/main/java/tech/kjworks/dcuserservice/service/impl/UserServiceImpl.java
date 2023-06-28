@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import tech.kjworks.dcuserservice.model.User;
 import tech.kjworks.dcuserservice.repository.UserRepository;
 import tech.kjworks.dcuserservice.service.UserService;
+import tech.kjworks.dcuserservice.util.data.UserDataUtils;
+import tech.kjworks.dcuserservice.util.dto.UserDTO;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -15,27 +17,33 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
 
     @Override
-    public List<User> list() {
-        return userRepository.findAll();
+    public List<UserDTO> list() {
+        List<User> users = userRepository.findAll();
+        return UserDataUtils.toDTOList(users);
     }
 
     @Override
-    public User create(User entity) {
-        return userRepository.insert(entity);
+    public UserDTO create(UserDTO dto) {
+        User entity = UserDataUtils.toModel(dto);
+        entity = userRepository.insert(entity);
+        return UserDataUtils.toDTO(entity);
     }
 
     @Override
-    public User update(String id, User entity) {
+    public UserDTO update(String id, UserDTO dto) {
         boolean exists = userRepository.existsById(id);
         if (exists) {
-            return userRepository.save(entity);
+            User entity = UserDataUtils.toModel(dto);
+            entity = userRepository.save(entity);
+            return UserDataUtils.toDTO(entity);
         }
         return null;
     }
 
     @Override
-    public User get(String id) {
-        return userRepository.findById(id).orElse(null);
+    public UserDTO get(String id) {
+        User entity = userRepository.findById(id).orElse(null);
+        return UserDataUtils.toDTO(entity);
     }
 
     @Override
@@ -46,5 +54,4 @@ public class UserServiceImpl implements UserService{
         }
         return exists;
     }
-    
 }
