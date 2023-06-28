@@ -47,15 +47,9 @@ server:
     port: 10000
 
 eureka:
-    # instance:
-    #     preferIpAddress: true
     client:
-        register-with-eureka: true
-        fetch-registry: true
         serviceUrl:
-            defaultZone: http://${eureka.service.host:localhost}:10761/eureka/
-        healthcheck:
-            enabled: true
+            defaultZone: http://${eureka.service.host:localhost}:${eureka.service.port:10761}/eureka/
 
 logging:
     level:

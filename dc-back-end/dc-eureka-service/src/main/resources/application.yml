@@ -3,16 +3,16 @@ spring:
         name: dc-eureka-service
 
 server:
-    port: 10761
+    port: ${eureka.service.port:10761}
 
 eureka:
     instance:
-        hostname: ${eureka.service.host}
+        hostname: ${eureka.service.host:localhost}
     client:
         registerWithEureka: false
         fetchRegistry: false
         serviceUrl:
-            defaultZone: http://${eureka.instance.hostname:localhost}:10761/eureka/
+            defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 
 logging:
     level:

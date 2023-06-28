@@ -3,6 +3,8 @@ version: "3.9"
 services:
   # dc-user-db:
   #   image: "mongo"
+  #   command: mongod --port 27017
+  #   container_name: dc-user-db
   #   restart: always
   #   ports:
   #     - 27017:27017
@@ -21,50 +23,13 @@ services:
 
   # dc-comment-db:
   #   image: "mongo"
+  #   command: mongod --port 27037
+  #   container_name: dc-comment-db
   #   restart: always
   #   ports:
-  #     - 27037:27017
+  #     - 27037:27037
   #   networks:
   #     - devcrunch
-
-  # dc-user-service:
-  #   restart: never
-  #   build:
-  #     context: ./dc-back-end/dc-user-service
-  #   # context: ./dc-user-service
-  #   ports:
-  #     - 10010:10010
-  #   depends_on:
-  #     - dc-user-db
-  #   environment:
-  #     - DATABASE_HOST=dc-user-db
-  #     - DATABASE_PORT=27017
-
-  # dc-post-service:
-  #   restart: never
-  #   build:
-  #     context: ./dc-back-end/dc-post-service
-  #   # context: ./dc-post-service
-  #   ports:
-  #     - 10020:10020
-  #   depends_on:
-  #     - dc-post-db
-  #   environment:
-  #     - DATABASE_HOST=dc-post-db
-  #     - DATABASE_PORT=27027
-
-  # dc-comment-service:
-  #   restart: never
-  #   build:
-  #     context: ./dc-back-end/dc-comment-service
-  #   # context: ./dc-comment-service
-  #   ports:
-  #     - 10030:10030
-  #   depends_on:
-  #     - dc-comment-db
-  #   environment:
-  #     - DATABASE_HOST=dc-comment-db
-  #     - DATABASE_PORT=27037
 
   dc-gateway-service:
     restart: always
@@ -73,14 +38,18 @@ services:
     ports: 
       - 10000:10000
     links:
-      # - dc-user-service
       - dc-eureka-service
+      # - dc-user-service
       - dc-post-service
       # - dc-comment-service
     depends_on:
       - dc-eureka-service
+      # - dc-user-service
+      - dc-post-service
+      # - dc-comment-service
     environment:
       - EUREKA_SERVICE_HOST=dc-eureka-service
+      - EUREKA_SERVICE_PORT=10761
     networks:
       - devcrunch
 
@@ -92,11 +61,32 @@ services:
       - 10761:10761
     environment:
       - EUREKA_SERVICE_HOST=localhost
+      - EUREKA_SERVICE_PORT=10761
     networks:
       - devcrunch
+  
+  # dc-user-service:
+  #   restart: always
+  #   container_name: dc-user-service
+  #   build:
+  #     context: ./dc-back-end/dc-user-service
+  #   ports:
+  #     - 10010:10010
+  #   links:
+  #     - dc-user-db
+  #   depends_on:
+  #     - dc-eureka-service
+  #   environment:
+  #     - EUREKA_SERVICE_HOST=dc-eureka-service
+  #     - EUREKA_SERVICE_PORT=10761
+  #     - DATABASE_HOST=dc-user-db
+  #     - DATABASE_PORT=27017
+  #   networks:
+  #     - devcrunch
 
   dc-post-service:
     restart: always
+    container_name: dc-post-service
     build:
       context: ./dc-back-end/dc-post-service
     ports:
@@ -107,10 +97,30 @@ services:
       - dc-eureka-service
     environment:
       - EUREKA_SERVICE_HOST=dc-eureka-service
+      - EUREKA_SERVICE_PORT=10761
       - DATABASE_HOST=dc-post-db
       - DATABASE_PORT=27027
     networks:
       - devcrunch
+  
+  # dc-comment-service:
+  #   restart: always
+  #   container_name: dc-comment-service
+  #   build:
+  #     context: ./dc-back-end/dc-comment-service
+  #   ports:
+  #     - 10030:10030
+  #   links:
+  #     - dc-comment-db
+  #   depends_on:
+  #     - dc-eureka-service
+  #   environment:
+  #     - EUREKA_SERVICE_HOST=dc-eureka-service
+  #     - EUREKA_SERVICE_PORT=10761
+  #     - DATABASE_HOST=dc-comment-db
+  #     - DATABASE_PORT=27037
+  #   networks:
+  #     - devcrunch
     
 networks:
   devcrunch:
