@@ -29,6 +29,18 @@ public class PostServiceImpl implements PostService {
         return PostDataUtils.toDTO(entity);
     }
 
+    public PostDTO createSolution(String problemId, PostDTO dto) {
+        Post entity = postRepository.findById(problemId).orElse(null);
+        if (entity != null) {
+            List<Post> solutionList = entity.getSolutionList();
+            solutionList.add(PostDataUtils.toModel(dto));
+            entity.setSolutionList(solutionList);
+            entity = postRepository.save(entity);
+            return PostDataUtils.toDTO(entity);
+        }
+        return null;
+    }
+
     @Override
     public PostDTO update(String id, PostDTO dto) {
         boolean exists = postRepository.existsById(id);

@@ -38,6 +38,12 @@ public class PostController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
+    @PutMapping(path = "/createSolution/{id}")
+    public ResponseEntity<PostDTO> createSolution(@PathVariable String problemId, @Valid @RequestBody PostDTO solution) {
+        PostDTO dto = service.createSolution(problemId, solution);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<PostDTO> update(@PathVariable String id, @Valid @RequestBody PostDTO post) {
         PostDTO dto = service.update(id, post);
