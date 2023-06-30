@@ -1,13 +1,13 @@
 package tech.kjworks.dceurekaservice;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class DcEurekaServiceApplicationTests {
+// @SpringBootTest
+// class DcEurekaServiceApplicationTests {
 
-	// @Test
-	// void contextLoads() {
-	// }
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }

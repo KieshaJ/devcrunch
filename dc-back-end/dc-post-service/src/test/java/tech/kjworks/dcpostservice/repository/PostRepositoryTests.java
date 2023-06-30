@@ -1,15 +1,15 @@
 package tech.kjworks.dcpostservice.repository;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+// import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+// import org.junit.jupiter.api.AfterEach;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 
-import tech.kjworks.dcpostservice.model.Post;
-import tech.kjworks.dcpostservice.util.enums.PostType;
+// import tech.kjworks.dcpostservice.model.Post;
+// import tech.kjworks.dcpostservice.util.enums.PostType;
 
 // @DataMongoTest
 // public class PostRepositoryTests {
