@@ -12,8 +12,8 @@ public record PostDTO(
         PostType type,
         String authorId,
         String title,
-        List<String> contentIdList,
-        List<String> solutionIdList,
+        List<ContentBlockDTO> contentList,
+        List<PostDTO> solutionList,
         List<String> commentIdList) {
 
 }

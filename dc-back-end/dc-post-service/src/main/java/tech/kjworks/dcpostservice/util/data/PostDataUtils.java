@@ -16,10 +16,8 @@ public class PostDataUtils {
             model.getType(),
             model.getAuthorId(),
             model.getTitle(),
-            // model.getCommentIds(),
-            // model.getSolutionList(),
-            null,
-            null,
+            ContentBlockDataUtils.toDTOList(model.getContentList()),
+            toDTOList(model.getSolutionList()),
             model.getCommentIds()
         );
     }
@@ -34,9 +32,9 @@ public class PostDataUtils {
             dto.type(),
             dto.authorId(),
             dto.title(),
-            null,
-            null,
-            null
+            ContentBlockDataUtils.toModelList(dto.contentList()),
+            toModelList(dto.solutionList()),
+            dto.commentIdList()
         );
     }
 

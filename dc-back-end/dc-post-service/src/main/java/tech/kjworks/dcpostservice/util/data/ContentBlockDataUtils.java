@@ -14,7 +14,8 @@ public class ContentBlockDataUtils {
             model.getCreatedAt(),
             model.getUpdatedAt(),
             model.getType(),
-            model.getContent()
+            model.getContent(),
+            model.getCommentIds()
         );
     }
 
@@ -26,7 +27,8 @@ public class ContentBlockDataUtils {
         return new ContentBlock(
             dto.id(),
             dto.contentType(),
-            dto.content()
+            dto.content(),
+            dto.commentIds()
         );
     }
 

@@ -1,5 +1,7 @@
 package tech.kjworks.dcpostservice.model;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.NotNull;
@@ -18,10 +20,15 @@ public class ContentBlock extends BaseModel {
     @NotNull
     @Size(min = 10, max = 4096)
     private String content;
+    private List<String> commentIds;
 
-    public ContentBlock(String id, ContentType type, String content) {
+    public ContentBlock(String id,
+            ContentType type,
+            String content,
+            List<String> commentIds) {
         super(id);
         this.type = type;
         this.content = content;
+        this.commentIds = commentIds;
     }
 }
