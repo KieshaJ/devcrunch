@@ -11,11 +11,11 @@ import tech.kjworks.dcpostservice.util.enums.ContentType;
 @Getter
 @Setter
 public class ContentBlock {
-    @NotNull
+    @NotNull(message = "Order required")
     private Integer order;
-    @NotNull
+    @NotNull(message = "Content type required")
     private ContentType type;
-    @NotNull
+    @NotNull(message = "Content can not be empty")
     @Size(min = 10, max = 4096)
     private String content;
     private List<String> commentIds;

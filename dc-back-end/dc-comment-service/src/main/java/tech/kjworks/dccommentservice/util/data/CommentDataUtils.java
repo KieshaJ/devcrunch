@@ -14,7 +14,6 @@ public class CommentDataUtils {
             model.getCreatedAt(),
             model.getUpdatedAt(),
             model.getAuthorId(),
-            model.getPostId(),
             model.getContent()
         );
     }
@@ -27,7 +26,6 @@ public class CommentDataUtils {
         return new Comment(
             dto.id(),
             dto.authorId(),
-            dto.postId(),
             dto.content()
         );
     }

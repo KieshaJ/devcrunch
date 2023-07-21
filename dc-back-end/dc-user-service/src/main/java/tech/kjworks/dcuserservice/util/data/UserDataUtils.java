@@ -15,9 +15,8 @@ public class UserDataUtils {
             model.getUpdatedAt(),
             model.getFirstName(),
             model.getLastName(),
-            null,
-            null,
-            null
+            model.getEmail(),
+            model.getRoles()
         );
     }
 
@@ -29,7 +28,9 @@ public class UserDataUtils {
         return new User(
             dto.id(),
             dto.firstName(),
-            dto.lastName()
+            dto.lastName(),
+            dto.email(),
+            dto.roles()
         );
     }
 

@@ -17,11 +17,11 @@ import tech.kjworks.dcpostservice.util.enums.PostType;
 @Setter
 @Document(collection = "posts")
 public class Post extends BaseModel {
-    @NotNull
+    @NotNull(message = "Post type required")
     private PostType type;
-    @NotNull
+    @NotNull(message = "Author required, please log in")
     private String authorId;
-    @NotNull
+    @NotNull(message = "Title can not be empty")
     @Size(min = 10, max = 256)
     private String title;
     private List<ContentBlock> contentList;

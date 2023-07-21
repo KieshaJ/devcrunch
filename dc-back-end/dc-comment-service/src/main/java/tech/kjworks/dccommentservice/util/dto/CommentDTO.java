@@ -7,7 +7,6 @@ public record CommentDTO(
     Date createdAt,
     Date updatedAt,
     String authorId,
-    String postId,
     String content
 ) {
     
