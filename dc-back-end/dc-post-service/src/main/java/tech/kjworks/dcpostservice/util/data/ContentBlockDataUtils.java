@@ -10,9 +10,7 @@ public class ContentBlockDataUtils {
 
     public static ContentBlockDTO toDTO(ContentBlock model) {
         return new ContentBlockDTO(
-            model.getId(),
-            model.getCreatedAt(),
-            model.getUpdatedAt(),
+            model.getOrder(),
             model.getType(),
             model.getContent(),
             model.getCommentIds()
@@ -25,7 +23,7 @@ public class ContentBlockDataUtils {
 
     public static ContentBlock toModel(ContentBlockDTO dto) {
         return new ContentBlock(
-            dto.id(),
+            dto.order(),
             dto.contentType(),
             dto.content(),
             dto.commentIds()

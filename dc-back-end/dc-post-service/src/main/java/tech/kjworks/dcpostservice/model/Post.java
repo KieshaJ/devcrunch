@@ -24,7 +24,6 @@ public class Post extends BaseModel {
     @NotNull
     @Size(min = 10, max = 256)
     private String title;
-    @DBRef
     private List<ContentBlock> contentList;
     @DBRef
     private List<Post> solutionList;

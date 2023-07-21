@@ -2,19 +2,17 @@ package tech.kjworks.dcpostservice.model;
 
 import java.util.List;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import tech.kjworks.dcbaseservice.model.BaseModel;
 import tech.kjworks.dcpostservice.util.enums.ContentType;
 
 @Getter
 @Setter
-@Document(collection = "contentBlocks")
-public class ContentBlock extends BaseModel {
+public class ContentBlock {
+    @NotNull
+    private Integer order;
     @NotNull
     private ContentType type;
     @NotNull
@@ -22,11 +20,11 @@ public class ContentBlock extends BaseModel {
     private String content;
     private List<String> commentIds;
 
-    public ContentBlock(String id,
+    public ContentBlock(Integer order,
             ContentType type,
             String content,
             List<String> commentIds) {
-        super(id);
+        this.order = order;
         this.type = type;
         this.content = content;
         this.commentIds = commentIds;
