@@ -6,7 +6,7 @@ services:
     command: mongod --port 27017
     container_name: dc-user-db
     restart: always
-    volumes: 
+    volumes:
       - dbs:/data/user-db
     ports:
       - 27017:27017
@@ -18,7 +18,7 @@ services:
     command: mongod --port 27027
     container_name: dc-post-db
     restart: always
-    volumes: 
+    volumes:
       - dbs:/data/post-db
     ports:
       - 27027:27027
@@ -29,7 +29,7 @@ services:
     image: "mongo"
     command: mongod --port 27037
     container_name: dc-comment-db
-    volumes: 
+    volumes:
       - dbs:/data/comment-db
     restart: always
     ports:
