@@ -128,6 +128,30 @@ services:
     networks:
       - devcrunch
 
+  # dc-admin:
+  #   restart: always
+  #   container_name: dc-admin
+  #   build:
+  #     context: ./dc-front-end/dc-admin
+  #   ports:
+  #     - 10100
+  #   depends_on:
+  #     - dc-gateway-service
+  #   networks:
+  #     - devcrunch
+
+  # dc-client:
+  #   restart: always
+  #   container_name: dc-client
+  #   build:
+  #     context: ./dc-front-end/dc-client
+  #   ports:
+  #     - 10200
+  #   depends_on:
+  #     - dc-gateway-service
+  #   networks:
+  #     - devcrunch
+
 volumes:
   dbs:
     
