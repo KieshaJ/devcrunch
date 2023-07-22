@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,12 +15,8 @@ import tech.kjworks.dcpostservice.util.enums.PostType;
 @Setter
 @Document(collection = "posts")
 public class Post extends BaseModel {
-    @NotNull(message = "Post type required")
     private PostType type;
-    @NotNull(message = "Author required, please log in")
     private String authorId;
-    @NotNull(message = "Title can not be empty")
-    @Size(min = 10, max = 256)
     private String title;
     private List<ContentBlock> contentList;
     @DBRef
