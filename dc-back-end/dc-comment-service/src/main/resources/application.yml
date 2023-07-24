@@ -4,6 +4,12 @@ server:
 spring:
     application:
         name: dc-comment-service
+    cloud:
+        openfeign:
+            client:
+                config:
+                    userClient:
+                        url: http://${user.service.host:localhost}:${user.service.port:10010}/comments/
     data:
         mongodb:
             host: ${database.host:localhost}:${database.port:27017}
