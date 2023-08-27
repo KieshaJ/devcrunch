@@ -5,32 +5,34 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Date;
 
 import org.bson.types.ObjectId;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BaseModelTests {
-    @Test
-    public void baseModel_constructor_success() {
-        ObjectId id = new ObjectId();
-        BaseModel model = new BaseModel(id.toString());
+class BaseModelTests {
+    private ObjectId id;
+    private BaseModel model;
 
+    @BeforeEach
+    void init() {
+        id = new ObjectId();
+        model = new BaseModel(id.toString());
+    }
+
+    @Test
+    void baseModel_constructor_success() {
         assertEquals(id.toString(), model.getId());
     }
 
     @Test
-    public void baseModel_getters() {
-        ObjectId id = new ObjectId();
-        BaseModel model = new BaseModel(id.toString());
-
+    void baseModel_getters() {
         assertEquals(id.toString(), model.getId());
         assertEquals(null, model.getCreatedAt());
         assertEquals(null, model.getUpdatedAt());
     }
 
     @Test
-    public void baseModel_setters() {
-        ObjectId id = new ObjectId();
+    void baseModel_setters() {
         ObjectId newId = new ObjectId();
-        BaseModel model = new BaseModel(id.toString());
         Date now = new Date();
 
         model.setId(newId.toString());
