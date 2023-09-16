@@ -4,12 +4,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 import tech.kjworks.dcbaseservice.model.BaseModel;
 
-@Getter
-@Setter
 @Document(collection = "comments")
 public class Comment extends BaseModel {
     @NotNull(message = "Author required, please log in")
@@ -23,6 +19,22 @@ public class Comment extends BaseModel {
         String content) {
         super(id);
         this.authorId = authorId;
+        this.content = content;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
         this.content = content;
     }
 }

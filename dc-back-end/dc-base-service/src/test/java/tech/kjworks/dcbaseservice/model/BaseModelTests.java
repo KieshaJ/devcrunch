@@ -19,19 +19,19 @@ class BaseModelTests {
     }
 
     @Test
-    void baseModel_constructor_success() {
+    void baseModelConstructor() {
         assertEquals(id.toString(), model.getId());
     }
 
     @Test
-    void baseModel_getters() {
+    void baseModelGetters() {
         assertEquals(id.toString(), model.getId());
         assertEquals(null, model.getCreatedAt());
         assertEquals(null, model.getUpdatedAt());
     }
 
     @Test
-    void baseModel_setters() {
+    void baseModelSetters() {
         ObjectId newId = new ObjectId();
         Date now = new Date();
 

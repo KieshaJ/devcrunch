@@ -1,7 +1,6 @@
 package tech.kjworks.dcbaseservice.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.startsWith;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,19 +22,19 @@ class ErrorTests {
     }
 
     @Test
-    void error_constructor_success() {
+    void errorConstructor() {
         assertEquals(message, e.getMessage());
     }
 
     @Test
-    void error_getters() {
+    void errorGetters() {
         assertEquals(message, e.getMessage());
         assertEquals(status, e.getStatus());
         assertEquals(timestamp, e.getTimestamp());
     }
 
     @Test
-    void error_setters() {
+    void errorSetters() {
         String newMessage = "test1";
         Integer newStatus = 404;
         Long newTimestamp = 1L;
